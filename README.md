@@ -1021,8 +1021,6 @@ Department → Team Composition → Aggregate Risk → Systemic Pattern
 - **Audit trail** — Every manager action is immutably logged with timestamp and anonymised context
 - **Data minimisation** — Only the Graph API scopes strictly necessary for scoring are requested
 
-> ⚠️ **Security Note:** If you discover a vulnerability, please email [security@your-domain.com] rather than opening a public issue.
-
 ---
 
 ## 🧗 Challenges Faced
@@ -1067,16 +1065,6 @@ Department → Team Composition → Aggregate Risk → Systemic Pattern
 | **Slack / Google Workspace** | Extend signal collection to non-M365 workplaces | Low |
 | **Mobile Copilot App** | Ensure full agent functionality in the M365 Copilot mobile app | Low |
 | **HRIS Direct Integration** | Live integration with Workday/SAP SuccessFactors for leave balance and role data | Low |
-
----
-
-## 👥 Contributors
-
-| Name | Role | GitHub |
-|---|---|---|
-| [Your Name] | Lead Developer & Architect | [@your-github](https://github.com/your-github) |
-| [Contributor 2] | Backend / MCP Server | [@contributor2](https://github.com/) |
-| [Contributor 3] | M365 Agent & UX | [@contributor3](https://github.com/) |
 
 ---
 
