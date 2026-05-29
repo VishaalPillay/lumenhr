@@ -218,3 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 # Azure Functions local config
 local.settings.json
+
+# AI Agent Folders
+.agents/
+.ai_architecture.md
