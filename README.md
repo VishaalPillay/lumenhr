@@ -1057,15 +1057,13 @@ Department → Team Composition → Aggregate Risk → Systemic Pattern
 
 | Feature | Description | Priority |
 |---|---|---|
-| **Real-Time Signal Mode** | Optional live Graph API queries for critical-risk escalations (bypassing the nightly cache for urgent cases) | High |
-| **Longitudinal Trend Analysis** | 12-week rolling burnout history with seasonal adjustment (e.g., normalise for annual planning cycles) | High |
-| **Team Calendar Intelligence** | Agent proactively suggests and schedules "No-Meeting Fridays" or focus blocks at team level | Medium |
-| **Cross-Team Benchmarking** | Anonymous cross-department risk comparison: *"Engineering is at 2x the company average meeting load"* | Medium |
-| **Manager Effectiveness Scoring** | Track whether manager interventions reduce risk scores over 4–6 weeks | Medium |
-| **Slack / Google Workspace** | Extend signal collection to non-M365 workplaces | Low |
-| **Mobile Copilot App** | Ensure full agent functionality in the M365 Copilot mobile app | Low |
-| **HRIS Direct Integration** | Live integration with Workday/SAP SuccessFactors for leave balance and role data | Low |
-
+| **Microsoft Planner Integration** | Employee-facing task query ("What's assigned to me this week?") | High |
+| **Cognitive Load + Task Matrix** | Combined view of assigned Planner tasks vs. available focus time bandwidth | High |
+| **Real-Time Signal Mode** | Optional live Graph API queries for critical-risk escalations | High |
+| **Longitudinal Trend Analysis** | 12-week rolling burnout history with seasonal adjustment | High |
+| **Team Calendar Intelligence** | Agent proactively suggests and schedules "No-Meeting Fridays" | Medium |
+| **Cross-Team Benchmarking** | Anonymous cross-department risk comparison | Medium |
+| **HRIS Direct Integration** | Live integration with Workday/SAP SuccessFactors for leave balance | Low |
 ---
 
 *Built for the [Agents League Hackathon](https://aka.ms/agentsleague/discord) — Microsoft Enterprise Agent Track, June 2026.*
