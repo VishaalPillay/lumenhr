@@ -8,6 +8,7 @@ Start with:
 from fastapi import FastAPI
 
 from mcp_server.tools.hr_read import router as hr_read_router
+from mcp_server.tools.hr_write import router as hr_write_router
 
 app = FastAPI(
     title="LumenHR MCP Server",
@@ -21,3 +22,4 @@ app = FastAPI(
 # ── Route registration ────────────────────────────────────────────────────────
 
 app.include_router(hr_read_router)
+app.include_router(hr_write_router)

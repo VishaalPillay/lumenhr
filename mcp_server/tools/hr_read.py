@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 
 from database.connection import get_db
 from database.models import Employee, PreComputedScore, RoleBaseline
+from mcp_server.auth import CurrentUser, get_current_user
 from mcp_server.schemas.signals import (
     GetTeamSignalsRequest,
     GetTeamSignalsResponse,
@@ -112,25 +113,22 @@ def _jaccard_similarity(set_a: set[str], set_b: set[str]) -> float:
         "direct reports of the requesting manager."
     ),
 )
-async def get_team_signals(
+def get_team_signals(
     request: GetTeamSignalsRequest,
+    current_user: CurrentUser = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> GetTeamSignalsResponse:
-    # TODO: Replace request.manager_id with JWT sub claim for security.
-    #       Currently trusts the JSON body — an IDOR risk until OAuth
-    #       middleware extracts the identity from the Entra ID token.
-    manager_id = request.manager_id
+    manager_id = current_user.user_id
 
     # 1. Fetch direct reports (deterministic sort for stable anonymisation)
-    team_members = (
-        db.query(Employee)
-        .filter(
-            Employee.manager_id == manager_id,
-            or_(Employee.is_active.is_(True), Employee.is_active.is_(None)),
-        )
-        .order_by(Employee.member_id)
-        .all()
+    query = db.query(Employee).filter(
+        Employee.manager_id == manager_id,
+        or_(Employee.is_active.is_(True), Employee.is_active.is_(None)),
     )
+    if request.department_id:
+        query = query.filter(Employee.department == request.department_id)
+
+    team_members = query.order_by(Employee.member_id).all()
 
     if not team_members:
         raise HTTPException(
@@ -227,8 +225,9 @@ async def get_team_signals(
         "for the specified employee."
     ),
 )
-async def get_member_trend(
+def get_member_trend(
     request: GetMemberTrendRequest,
+    current_user: CurrentUser = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> GetMemberTrendResponse:
     # Fetch up to 4 most recent score rows
@@ -307,8 +306,9 @@ async def get_member_trend(
         "a prioritised candidate list for task assignment."
     ),
 )
-async def recommend_task_assignment(
+def recommend_task_assignment(
     request: RecommendTaskAssignmentRequest,
+    current_user: CurrentUser = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> RecommendTaskAssignmentResponse:
     required = set(s.lower().strip() for s in request.required_skills)

@@ -20,14 +20,15 @@ from pydantic import BaseModel, Field
 class GetTeamSignalsRequest(BaseModel):
     """Request payload for the get_team_signals MCP tool."""
 
-    manager_id: str = Field(
-        ...,
-        description="Azure AD object-id of the requesting manager.",
-    )
     time_window: str = Field(
         default="7d",
         description="Lookback window for signals.",
     )
+    department_id: str | None = Field(
+        default=None,
+        description="Optional department filter",
+    )
+
 
 
 class TeamSummaryMetrics(BaseModel):

@@ -76,10 +76,6 @@ class GetInterventionPlaybookResponse(BaseModel):
 class CreateCheckinEventRequest(BaseModel):
     """Request payload for the create_checkin_event MCP tool."""
 
-    manager_id: str = Field(
-        ...,
-        description="Azure AD object-id of the manager scheduling the check-in.",
-    )
     employee_id: str = Field(
         ...,
         description="Unique employee identifier (e.g. EMP-001) for the welfare check-in.",
@@ -95,6 +91,7 @@ class CreateCheckinEventRequest(BaseModel):
         ...,
         description="Duration of the 1:1 welfare check-in in minutes.",
     )
+
 
 
 class CreateCheckinEventResponse(BaseModel):
