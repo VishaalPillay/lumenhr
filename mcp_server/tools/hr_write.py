@@ -77,7 +77,7 @@ PLAYBOOK_ACTIONS: dict[str, list[PlaybookAction]] = {
         PlaybookAction(
             action_title="Immediate Workload Rebalance",
             description=(
-                "Redistribute at least 20%% of the team member's active "
+                "Redistribute at least 20% of the team member's active "
                 "tasks to peers with available capacity. Document the "
                 "rebalance in the team's project tracker."
             ),
@@ -142,7 +142,7 @@ def log_intervention(
     entry = InterventionLog(
         manager_id=current_user.user_id,
         action_type=request.action_taken,
-        context_summary=request.notes,
+        context_summary=f"Target: {request.employee_id} | Notes: {request.notes or 'N/A'}",
     )
     try:
         db.add(entry)

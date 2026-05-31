@@ -20,7 +20,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database.connection import get_db
-from database.models import Employee, PreComputedScore, RoleBaseline
+from database.models import Employee, EmployeePreference, PreComputedScore, RoleBaseline
 from mcp_server.auth import CurrentUser, get_current_user
 from mcp_server.schemas.signals import (
     GetMySignalsRequest,
@@ -160,6 +160,18 @@ def get_my_signals(
         raise HTTPException(
             status_code=403,
             detail="Forbidden: You can only access your own signals.",
+        )
+
+    # Opt-in consent verification
+    preference = (
+        db.query(EmployeePreference)
+        .filter(EmployeePreference.member_id == request.employee_id)
+        .first()
+    )
+    if preference is None or not preference.opted_in:
+        raise HTTPException(
+            status_code=403,
+            detail="Signal access requires opt-in consent.",
         )
 
     # Query latest pre-computed score
